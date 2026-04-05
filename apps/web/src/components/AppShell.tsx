@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, AppBar, Toolbar, Typography, Select, MenuItem,
-         Drawer, List, ListItemButton, ListItemText, Button } from '@mui/material';
+         Drawer, List, ListItemButton, ListItemText, Button,
+         Popover, TextField, Stack } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../store/hooks.js';
-import { selectUsers, selectSelectedUserId, selectModal } from '../store/selectors.js';
+import { selectUsers, selectSelectedUserId } from '../store/selectors.js';
 import { setSelectedUser, openModal } from '../store/uiSlice.js';
 import { fetchLogEntries } from '../store/logEntriesSlice.js';
 import { fetchTemplates } from '../store/templatesSlice.js';
+import { createUser } from '../store/usersSlice.js';
 
 const DRAWER_WIDTH = 200;
 const TOPBAR_HEIGHT = 48;
@@ -30,10 +32,28 @@ export default function AppShell({ children }: AppShellProps) {
   const users = useAppSelector(selectUsers);
   const selectedUserId = useAppSelector(selectSelectedUserId);
 
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [newName, setNewName] = useState('');
+  const [nameError, setNameError] = useState('');
+
   function handleUserChange(userId: string) {
     dispatch(setSelectedUser(userId));
     dispatch(fetchLogEntries({ userId }));
     dispatch(fetchTemplates(userId));
+  }
+
+  async function handleAddUser() {
+    const name = newName.trim();
+    if (!name) return;
+    const result = await dispatch(createUser(name));
+    if (createUser.fulfilled.match(result)) {
+      handleUserChange(result.payload.id);
+      setAnchorEl(null);
+      setNewName('');
+      setNameError('');
+    } else {
+      setNameError('Username already exists');
+    }
   }
 
   return (
@@ -61,6 +81,28 @@ export default function AppShell({ children }: AppShellProps) {
               <MenuItem key={u.id} value={u.id} sx={{ fontSize: '0.75rem' }}>{u.name}</MenuItem>
             ))}
           </Select>
+
+          <Button size="small" variant="outlined"
+            onClick={e => { setAnchorEl(e.currentTarget); setNewName(''); setNameError(''); }}>
+            + New User
+          </Button>
+
+          <Popover open={Boolean(anchorEl)} anchorEl={anchorEl}
+            onClose={() => setAnchorEl(null)}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
+            <Stack sx={{ p: 2, gap: 1.5, minWidth: 220 }}>
+              <Typography variant="body2" fontWeight={600}>New User</Typography>
+              <TextField label="Username" size="small" value={newName} autoFocus
+                error={!!nameError} helperText={nameError}
+                onChange={e => { setNewName(e.target.value); setNameError(''); }}
+                onKeyDown={e => { if (e.key === 'Enter') handleAddUser(); }} />
+              <Stack direction="row" justifyContent="flex-end" gap={1}>
+                <Button size="small" onClick={() => setAnchorEl(null)}>Cancel</Button>
+                <Button size="small" variant="contained" disabled={!newName.trim()}
+                  onClick={handleAddUser}>Create</Button>
+              </Stack>
+            </Stack>
+          </Popover>
 
           <Button
             variant="contained"
