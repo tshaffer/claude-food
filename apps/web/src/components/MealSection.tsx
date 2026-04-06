@@ -33,7 +33,15 @@ export default function MealSection({ group, onAddToMeal }: Props) {
         </Button>
       </Box>
 
-      <Table size="small">
+      <Table size="small" sx={{ tableLayout: 'fixed' }}>
+        <colgroup>
+          <col style={{ width: '40%' }} />
+          <col style={{ width: '20%' }} />
+          <col style={{ width: '12%' }} />
+          <col style={{ width: '12%' }} />
+          <col style={{ width: '10%' }} />
+          <col style={{ width: '80px' }} />
+        </colgroup>
         <TableHead>
           <TableRow>
             <TableCell>Food</TableCell>
@@ -41,7 +49,7 @@ export default function MealSection({ group, onAddToMeal }: Props) {
             <TableCell align="right">Calories</TableCell>
             <TableCell align="right">Protein</TableCell>
             <TableCell align="right">Fiber</TableCell>
-            <TableCell align="right" sx={{ width: 80 }} />
+            <TableCell align="right" />
           </TableRow>
         </TableHead>
         <TableBody>
