@@ -7,6 +7,7 @@ import { calcNutrition } from '@claude-food/domain';
 export const selectSelectedUserId = (s: RootState) => s.ui.selectedUserId;
 export const selectTodayDate      = (s: RootState) => s.ui.todayDate;
 export const selectModal          = (s: RootState) => s.ui.modal;
+export const selectLastMeal       = (s: RootState) => s.ui.lastMeal;
 export const selectUsers          = (s: RootState) => s.users.items;
 export const selectFoods          = (s: RootState) => s.foods.items;
 export const selectFoodsById      = (s: RootState) =>

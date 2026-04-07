@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button,
          TextField, MenuItem, Box, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../store/hooks.js';
-import { selectSelectedUserId, selectFoods } from '../../store/selectors.js';
-import { closeModal } from '../../store/uiSlice.js';
+import { selectSelectedUserId, selectFoods, selectLastMeal } from '../../store/selectors.js';
+import { closeModal, setLastMeal } from '../../store/uiSlice.js';
 import { createLogEntry } from '../../store/logEntriesSlice.js';
 import { calcNutrition } from '@claude-food/domain';
 import { todayISO } from '@claude-food/shared';
@@ -19,9 +19,10 @@ export default function AddLogEntryModal({ initialDate, initialMeal }: Props) {
   const dispatch       = useAppDispatch();
   const selectedUserId = useAppSelector(selectSelectedUserId)!;
   const foods          = useAppSelector(selectFoods);
+  const lastMeal       = useAppSelector(selectLastMeal);
 
   const [date,   setDate]   = useState(initialDate ?? todayISO());
-  const [meal,   setMeal]   = useState(initialMeal ?? 'Breakfast');
+  const [meal,   setMeal]   = useState(initialMeal ?? lastMeal);
   const [foodId, setFoodId] = useState('');
   const [amount, setAmount] = useState<number | ''>('');
 
@@ -37,6 +38,7 @@ export default function AddLogEntryModal({ initialDate, initialMeal }: Props) {
       userId: selectedUserId,
       body: { userId: selectedUserId, date, meal, foodId, actualAmount: Number(amount) },
     }));
+    dispatch(setLastMeal(meal));
     if (addAnother) {
       setFoodId(''); setAmount('');
     } else {

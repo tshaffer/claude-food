@@ -13,12 +13,14 @@ export type ModalState =
 export interface UIState {
   selectedUserId: string | null;
   todayDate: string;
+  lastMeal: string;
   modal: ModalState;
 }
 
 const initialState: UIState = {
   selectedUserId: null,
   todayDate: todayISO(),
+  lastMeal: 'Breakfast',
   modal: { type: 'none' },
 };
 
@@ -35,11 +37,14 @@ const uiSlice = createSlice({
     openModal(state, action: PayloadAction<ModalState>) {
       state.modal = action.payload;
     },
+    setLastMeal(state, action: PayloadAction<string>) {
+      state.lastMeal = action.payload;
+    },
     closeModal(state) {
       state.modal = { type: 'none' };
     },
   },
 });
 
-export const { setSelectedUser, setTodayDate, openModal, closeModal } = uiSlice.actions;
+export const { setSelectedUser, setTodayDate, setLastMeal, openModal, closeModal } = uiSlice.actions;
 export default uiSlice.reducer;
