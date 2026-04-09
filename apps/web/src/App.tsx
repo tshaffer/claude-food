@@ -11,13 +11,31 @@ import GlobalModalHost from './components/GlobalModalHost.js';
 import { useAppDispatch } from './store/hooks.js';
 import { fetchUsers } from './store/usersSlice.js';
 import { fetchFoods } from './store/foodsSlice.js';
+import { fetchLogEntries } from './store/logEntriesSlice.js';
+import { fetchTemplates } from './store/templatesSlice.js';
+import { setSelectedUser } from './store/uiSlice.js';
 
 export default function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchUsers());
-    dispatch(fetchFoods());
+    async function init() {
+      const [usersResult] = await Promise.all([
+        dispatch(fetchUsers()),
+        dispatch(fetchFoods()),
+      ]);
+      if (fetchUsers.fulfilled.match(usersResult)) {
+        const users = usersResult.payload;
+        const lastUserId = localStorage.getItem('lastUserId');
+        const match = lastUserId && users.find(u => u.id === lastUserId);
+        if (match) {
+          dispatch(setSelectedUser(match.id));
+          dispatch(fetchLogEntries({ userId: match.id }));
+          dispatch(fetchTemplates(match.id));
+        }
+      }
+    }
+    init();
   }, [dispatch]);
 
   return (

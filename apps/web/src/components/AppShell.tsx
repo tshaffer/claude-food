@@ -40,6 +40,7 @@ export default function AppShell({ children }: AppShellProps) {
     dispatch(setSelectedUser(userId));
     dispatch(fetchLogEntries({ userId }));
     dispatch(fetchTemplates(userId));
+    localStorage.setItem('lastUserId', userId);
   }
 
   async function handleAddUser() {
