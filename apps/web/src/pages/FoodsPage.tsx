@@ -33,7 +33,7 @@ export default function FoodsPage() {
   }
 
   return (
-    <Box sx={{ p: '20px 28px', display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+    <Box sx={{ p: '20px 28px', display: 'flex', flexDirection: 'column', gap: 1.5, height: 'calc(100vh - 48px)', boxSizing: 'border-box', overflow: 'hidden' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Typography variant="h1">Foods</Typography>
         <Button variant="contained" size="small"
@@ -57,7 +57,7 @@ export default function FoodsPage() {
         </Select>
       </Paper>
 
-      <Paper variant="outlined" sx={{ overflow: 'hidden' }}>
+      <Paper variant="outlined" sx={{ flex: 1, overflow: 'auto' }}>
         <Table size="small">
           <TableHead>
             <TableRow>

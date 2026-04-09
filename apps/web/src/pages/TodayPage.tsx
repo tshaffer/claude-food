@@ -24,7 +24,7 @@ export default function TodayPage() {
   }
 
   return (
-    <Box sx={{ p: '20px 28px', display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+    <Box sx={{ p: '20px 28px', display: 'flex', flexDirection: 'column', gap: 1.5, height: 'calc(100vh - 48px)', boxSizing: 'border-box', overflow: 'auto' }}>
       {/* Header */}
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1.5 }}>

@@ -154,7 +154,7 @@ export default function AppShell({ children }: AppShellProps) {
         </Drawer>
 
         {/* Main content */}
-        <Box component="main" sx={{ flex: 1, overflow: 'auto', bgcolor: 'background.default' }}>
+        <Box component="main" sx={{ flex: 1, overflow: 'hidden', bgcolor: 'background.default', display: 'flex', flexDirection: 'column' }}>
           {children}
         </Box>
       </Box>
