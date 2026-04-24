@@ -27,7 +27,7 @@ app.use('/api', logEntriesRouter);
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
 
 app.use(express.static(publicDir));
-app.get('*', (_req, res) => res.sendFile(path.join(publicDir, 'index.html')));
+app.get('/{*path}', (_req, res) => res.sendFile(path.join(publicDir, 'index.html')));
 
 connectDb(MONGODB_URI).then(() => {
   app.listen(PORT, () => console.log(`API listening on http://localhost:${PORT}`));
