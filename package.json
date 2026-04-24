@@ -2,9 +2,13 @@
   "name": "claude-food",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.31.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "dev": "pnpm --parallel --filter './apps/*' dev",
-    "build": "pnpm --filter './packages/*' build && pnpm --filter './apps/*' build",
+    "build": "pnpm --filter './packages/*' build && pnpm --filter '@claude-food/web' build && pnpm --filter '@claude-food/api' build",
     "typecheck": "pnpm -r typecheck"
   },
   "devDependencies": {
