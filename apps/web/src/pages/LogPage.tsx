@@ -24,16 +24,21 @@ export default function LogPage() {
 
   const meals = [...new Set(allEntries.map(e => e.meal))].sort();
 
-  const filtered = allEntries.filter(e => {
-    if (dateFilter && e.date !== dateFilter) return false;
-    if (mealFilter && e.meal !== mealFilter) return false;
-    if (searchText) {
-      const q = searchText.toLowerCase();
-      if (!e.foodName.toLowerCase().includes(q) &&
-          !(e.templateNameSnapshot ?? '').toLowerCase().includes(q)) return false;
-    }
-    return true;
-  });
+  const filtered = allEntries
+    .filter(e => {
+      if (dateFilter && e.date !== dateFilter) return false;
+      if (mealFilter && e.meal !== mealFilter) return false;
+      if (searchText) {
+        const q = searchText.toLowerCase();
+        if (!e.foodName.toLowerCase().includes(q) &&
+            !(e.templateNameSnapshot ?? '').toLowerCase().includes(q)) return false;
+      }
+      return true;
+    })
+    .sort((a, b) => {
+      if (b.date !== a.date) return b.date < a.date ? -1 : 1;
+      return a.createdAt < b.createdAt ? -1 : 1;
+    });
 
   return (
     <Box sx={{ p: '20px 28px', display: 'flex', flexDirection: 'column', gap: 1.5, height: 'calc(100vh - 48px)', boxSizing: 'border-box', overflow: 'hidden' }}>

@@ -4,7 +4,10 @@
       "mcp__plugin_figma_figma__use_figma",
       "mcp__plugin_figma_figma__get_screenshot",
       "Bash(pnpm install:*)",
-      "Bash(pnpm typecheck:*)"
+      "Bash(pnpm typecheck:*)",
+      "Bash(pnpm dev *)",
+      "Bash(ps *)",
+      "Bash(kill 88232)"
     ]
   }
 }
