@@ -26,6 +26,7 @@ pnpm-debug.log*
 *.swp
 *.swo
 .DS_Store
+.claude/settings.local.json
 
 # pnpm
 .pnpm-store/
