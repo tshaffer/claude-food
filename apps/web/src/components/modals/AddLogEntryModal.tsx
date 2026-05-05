@@ -29,7 +29,8 @@ export default function AddLogEntryModal({ initialDate, initialMeal }: Props) {
   const food      = foods.find(f => f.id === foodId);
   const preview   = food && amount !== ''
     ? calcNutrition(Number(amount), food.unitQuantity,
-                    food.caloriesPerUnit, food.proteinPerUnit, food.fiberPerUnit)
+                    food.caloriesPerUnit, food.proteinPerUnit, food.fiberPerUnit,
+                    food.saturatedFatPerUnit ?? 0, food.addedSugarPerUnit ?? 0)
     : null;
 
   async function handleSave(addAnother = false) {

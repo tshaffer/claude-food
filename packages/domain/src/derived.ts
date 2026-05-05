@@ -9,6 +9,8 @@ export interface EnrichedLogEntry extends LogEntry {
   calories: number;
   protein: number;
   fiber: number;
+  saturatedFat: number;
+  addedSugar: number;
 }
 
 export interface DailyTotals {
@@ -16,6 +18,8 @@ export interface DailyTotals {
   calories: number;
   protein: number;
   fiber: number;
+  saturatedFat: number;
+  addedSugar: number;
 }
 
 export interface MealGroup {
@@ -23,6 +27,8 @@ export interface MealGroup {
   calories: number;
   protein: number;
   fiber: number;
+  saturatedFat: number;
+  addedSugar: number;
   entries: EnrichedLogEntry[];
 }
 
@@ -35,6 +41,8 @@ export interface TemplatePreviewRow {
   calories: number;
   protein: number;
   fiber: number;
+  saturatedFat: number;
+  addedSugar: number;
 }
 
 // ── Nutrition calculation ────────────────────────────────────
@@ -44,12 +52,16 @@ export function calcNutrition(
   unitQuantity: number,
   caloriesPerUnit: number,
   proteinPerUnit: number,
-  fiberPerUnit: number
-): { calories: number; protein: number; fiber: number } {
+  fiberPerUnit: number,
+  saturatedFatPerUnit: number,
+  addedSugarPerUnit: number,
+): { calories: number; protein: number; fiber: number; saturatedFat: number; addedSugar: number } {
   const factor = actualAmount / unitQuantity;
   return {
-    calories: Math.round(factor * caloriesPerUnit * 10) / 10,
-    protein:  Math.round(factor * proteinPerUnit  * 10) / 10,
-    fiber:    Math.round(factor * fiberPerUnit    * 10) / 10,
+    calories:     Math.round(factor * caloriesPerUnit     * 10) / 10,
+    protein:      Math.round(factor * proteinPerUnit      * 10) / 10,
+    fiber:        Math.round(factor * fiberPerUnit        * 10) / 10,
+    saturatedFat: Math.round(factor * saturatedFatPerUnit * 10) / 10,
+    addedSugar:   Math.round(factor * addedSugarPerUnit   * 10) / 10,
   };
 }

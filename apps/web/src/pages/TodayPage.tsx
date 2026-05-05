@@ -40,6 +40,8 @@ export default function TodayPage() {
         calories={totals.calories}
         protein={totals.protein}
         fiber={totals.fiber}
+        saturatedFat={totals.saturatedFat}
+        addedSugar={totals.addedSugar}
       />
 
       {/* Action bar */}

@@ -89,7 +89,8 @@ export default function TemplatesPage() {
       const food = foodsById[item.foodId];
       if (!food || item.defaultAmount === '') return acc;
       const n = calcNutrition(Number(item.defaultAmount), food.unitQuantity,
-                              food.caloriesPerUnit, food.proteinPerUnit, food.fiberPerUnit);
+                              food.caloriesPerUnit, food.proteinPerUnit, food.fiberPerUnit,
+                              food.saturatedFatPerUnit ?? 0, food.addedSugarPerUnit ?? 0);
       return { cal: acc.cal + n.calories, pro: acc.pro + n.protein, fib: acc.fib + n.fiber };
     },
     { cal: 0, pro: 0, fib: 0 }
@@ -180,7 +181,8 @@ export default function TemplatesPage() {
                     const food = foodsById[item.foodId];
                     const n = food && item.defaultAmount !== ''
                       ? calcNutrition(Number(item.defaultAmount), food.unitQuantity,
-                                      food.caloriesPerUnit, food.proteinPerUnit, food.fiberPerUnit)
+                                      food.caloriesPerUnit, food.proteinPerUnit, food.fiberPerUnit,
+                                      food.saturatedFatPerUnit ?? 0, food.addedSugarPerUnit ?? 0)
                       : null;
                     return (
                       <TableRow key={item.clientId}>

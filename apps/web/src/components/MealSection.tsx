@@ -15,7 +15,13 @@ interface Props {
 
 export default function MealSection({ group, onAddToMeal }: Props) {
   const dispatch = useAppDispatch();
-  const totalsLabel = `${Math.round(group.calories)} cal · ${Math.round(group.protein * 10) / 10}g protein · ${Math.round(group.fiber * 10) / 10}g fiber`;
+  const totalsLabel = [
+    `${Math.round(group.calories)} cal`,
+    `${Math.round(group.protein      * 10) / 10}g prot`,
+    `${Math.round(group.fiber        * 10) / 10}g fib`,
+    `${Math.round(group.saturatedFat * 10) / 10}g sat`,
+    `${Math.round(group.addedSugar   * 10) / 10}g sug`,
+  ].join(' · ');
 
   return (
     <Paper variant="outlined" sx={{ overflow: 'hidden' }}>
@@ -35,20 +41,24 @@ export default function MealSection({ group, onAddToMeal }: Props) {
 
       <Table size="small" sx={{ tableLayout: 'fixed' }}>
         <colgroup>
-          <col style={{ width: '40%' }} />
-          <col style={{ width: '20%' }} />
-          <col style={{ width: '12%' }} />
-          <col style={{ width: '12%' }} />
+          <col style={{ width: '30%' }} />
+          <col style={{ width: '14%' }} />
           <col style={{ width: '10%' }} />
-          <col style={{ width: '80px' }} />
+          <col style={{ width: '10%' }} />
+          <col style={{ width: '9%' }} />
+          <col style={{ width: '10%' }} />
+          <col style={{ width: '10%' }} />
+          <col style={{ width: '64px' }} />
         </colgroup>
         <TableHead>
           <TableRow>
             <TableCell>Food</TableCell>
             <TableCell>Amount</TableCell>
-            <TableCell align="right">Calories</TableCell>
+            <TableCell align="right">Cal</TableCell>
             <TableCell align="right">Protein</TableCell>
             <TableCell align="right">Fiber</TableCell>
+            <TableCell align="right">Sat Fat</TableCell>
+            <TableCell align="right">Sugar</TableCell>
             <TableCell align="right" />
           </TableRow>
         </TableHead>
@@ -61,10 +71,16 @@ export default function MealSection({ group, onAddToMeal }: Props) {
               </TableCell>
               <TableCell align="right">{Math.round(entry.calories)}</TableCell>
               <TableCell align="right" sx={{ color: 'text.secondary' }}>
-                {Math.round(entry.protein * 10) / 10}g
+                {Math.round(entry.protein      * 10) / 10}g
               </TableCell>
               <TableCell align="right" sx={{ color: 'text.secondary' }}>
-                {Math.round(entry.fiber * 10) / 10}g
+                {Math.round(entry.fiber        * 10) / 10}g
+              </TableCell>
+              <TableCell align="right" sx={{ color: 'text.secondary' }}>
+                {Math.round(entry.saturatedFat * 10) / 10}g
+              </TableCell>
+              <TableCell align="right" sx={{ color: 'text.secondary' }}>
+                {Math.round(entry.addedSugar   * 10) / 10}g
               </TableCell>
               <TableCell align="right" sx={{ p: '2px 8px' }}>
                 <IconButton size="small"

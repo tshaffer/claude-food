@@ -23,16 +23,17 @@ export function selectEnrichedEntries(s: RootState): EnrichedLogEntry[] {
     .map(entry => {
       const food = foodsById[entry.foodId];
       if (!food) return null;
-      const { calories, protein, fiber } = calcNutrition(
+      const { calories, protein, fiber, saturatedFat, addedSugar } = calcNutrition(
         entry.actualAmount, food.unitQuantity,
-        food.caloriesPerUnit, food.proteinPerUnit, food.fiberPerUnit
+        food.caloriesPerUnit, food.proteinPerUnit, food.fiberPerUnit,
+        food.saturatedFatPerUnit ?? 0, food.addedSugarPerUnit ?? 0,
       );
       return {
         ...entry,
         foodName: food.name,
         unitQuantity: food.unitQuantity,
         unitType: food.unitType,
-        calories, protein, fiber,
+        calories, protein, fiber, saturatedFat, addedSugar,
       };
     })
     .filter((e): e is EnrichedLogEntry => e !== null);
@@ -63,10 +64,12 @@ export function selectMealGroupsForDate(s: RootState, date: string): MealGroup[]
     const mealEntries = groups[meal];
     return {
       meal,
-      calories: mealEntries.reduce((s, e) => s + e.calories, 0),
-      protein:  mealEntries.reduce((s, e) => s + e.protein,  0),
-      fiber:    mealEntries.reduce((s, e) => s + e.fiber,    0),
-      entries:  mealEntries,
+      calories:     mealEntries.reduce((s, e) => s + e.calories,     0),
+      protein:      mealEntries.reduce((s, e) => s + e.protein,      0),
+      fiber:        mealEntries.reduce((s, e) => s + e.fiber,        0),
+      saturatedFat: mealEntries.reduce((s, e) => s + e.saturatedFat, 0),
+      addedSugar:   mealEntries.reduce((s, e) => s + e.addedSugar,   0),
+      entries:      mealEntries,
     };
   });
 }
@@ -78,10 +81,12 @@ export function selectDailyTotals(s: RootState): DailyTotals[] {
   const map: Record<string, DailyTotals> = {};
 
   for (const e of enriched) {
-    if (!map[e.date]) map[e.date] = { date: e.date, calories: 0, protein: 0, fiber: 0 };
-    map[e.date].calories += e.calories;
-    map[e.date].protein  += e.protein;
-    map[e.date].fiber    += e.fiber;
+    if (!map[e.date]) map[e.date] = { date: e.date, calories: 0, protein: 0, fiber: 0, saturatedFat: 0, addedSugar: 0 };
+    map[e.date].calories     += e.calories;
+    map[e.date].protein      += e.protein;
+    map[e.date].fiber        += e.fiber;
+    map[e.date].saturatedFat += e.saturatedFat;
+    map[e.date].addedSugar   += e.addedSugar;
   }
 
   return Object.values(map).sort((a, b) => b.date.localeCompare(a.date));
@@ -93,8 +98,10 @@ export function selectTotalsForDate(s: RootState, date: string): DailyTotals {
   const entries = selectEntriesForDate(s, date);
   return {
     date,
-    calories: entries.reduce((s, e) => s + e.calories, 0),
-    protein:  entries.reduce((s, e) => s + e.protein,  0),
-    fiber:    entries.reduce((s, e) => s + e.fiber,    0),
+    calories:     entries.reduce((s, e) => s + e.calories,     0),
+    protein:      entries.reduce((s, e) => s + e.protein,      0),
+    fiber:        entries.reduce((s, e) => s + e.fiber,        0),
+    saturatedFat: entries.reduce((s, e) => s + e.saturatedFat, 0),
+    addedSugar:   entries.reduce((s, e) => s + e.addedSugar,   0),
   };
 }

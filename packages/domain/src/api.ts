@@ -11,6 +11,8 @@ export interface CreateFoodRequest {
   caloriesPerUnit: number;
   proteinPerUnit: number;
   fiberPerUnit: number;
+  saturatedFatPerUnit: number;
+  addedSugarPerUnit: number;
 }
 
 export type UpdateFoodRequest = Partial<CreateFoodRequest>;

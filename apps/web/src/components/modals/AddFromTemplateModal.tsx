@@ -34,14 +34,15 @@ export default function AddFromTemplateModal({ initialDate, initialMeal }: Props
     if (!food) return null;
     const finalAmount = item.defaultAmount * multiplier;
     const n = calcNutrition(finalAmount, food.unitQuantity,
-                             food.caloriesPerUnit, food.proteinPerUnit, food.fiberPerUnit);
+                             food.caloriesPerUnit, food.proteinPerUnit, food.fiberPerUnit,
+                             food.saturatedFatPerUnit ?? 0, food.addedSugarPerUnit ?? 0);
     return { foodName: food.name, unitType: food.unitType,
              defaultAmount: item.defaultAmount, finalAmount, ...n };
   }).filter(Boolean) ?? [];
 
   const totals = previewRows.reduce(
-    (acc, r) => r ? { cal: acc.cal + r.calories, pro: acc.pro + r.protein, fib: acc.fib + r.fiber } : acc,
-    { cal: 0, pro: 0, fib: 0 }
+    (acc, r) => r ? { cal: acc.cal + r.calories, pro: acc.pro + r.protein, fib: acc.fib + r.fiber, sat: acc.sat + r.saturatedFat, sug: acc.sug + r.addedSugar } : acc,
+    { cal: 0, pro: 0, fib: 0, sat: 0, sug: 0 }
   );
 
   async function handleAdd() {

@@ -14,6 +14,8 @@ router.get('/', async (_req, res) => {
     unitQuantity: f.unitQuantity, unitType: f.unitType,
     caloriesPerUnit: f.caloriesPerUnit, proteinPerUnit: f.proteinPerUnit,
     fiberPerUnit: f.fiberPerUnit,
+    saturatedFatPerUnit: f.saturatedFatPerUnit ?? 0,
+    addedSugarPerUnit:   f.addedSugarPerUnit   ?? 0,
   })));
 });
 
@@ -32,7 +34,9 @@ router.put('/:id', async (req, res) => {
   res.json({ id: food._id, name: food.name,
     unitQuantity: food.unitQuantity, unitType: food.unitType,
     caloriesPerUnit: food.caloriesPerUnit, proteinPerUnit: food.proteinPerUnit,
-    fiberPerUnit: food.fiberPerUnit });
+    fiberPerUnit: food.fiberPerUnit,
+    saturatedFatPerUnit: food.saturatedFatPerUnit ?? 0,
+    addedSugarPerUnit:   food.addedSugarPerUnit   ?? 0 });
 });
 
 // DELETE /api/foods/:id

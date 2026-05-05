@@ -13,6 +13,8 @@ export interface Food {
   caloriesPerUnit: number;
   proteinPerUnit: number;
   fiberPerUnit: number;
+  saturatedFatPerUnit: number;
+  addedSugarPerUnit: number;
   createdAt: string;
   updatedAt: string;
 }

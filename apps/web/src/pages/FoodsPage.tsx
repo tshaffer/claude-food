@@ -8,7 +8,7 @@ import { selectFoods } from '../store/selectors.js';
 import { deleteFood } from '../store/foodsSlice.js';
 import { openModal } from '../store/uiSlice.js';
 
-type SortKey = 'name' | 'caloriesPerUnit' | 'proteinPerUnit' | 'fiberPerUnit';
+type SortKey = 'name' | 'caloriesPerUnit' | 'proteinPerUnit' | 'fiberPerUnit' | 'saturatedFatPerUnit' | 'addedSugarPerUnit';
 
 export default function FoodsPage() {
   const dispatch = useAppDispatch();
@@ -54,6 +54,8 @@ export default function FoodsPage() {
           <MenuItem value="caloriesPerUnit">Calories</MenuItem>
           <MenuItem value="proteinPerUnit">Protein</MenuItem>
           <MenuItem value="fiberPerUnit">Fiber</MenuItem>
+          <MenuItem value="saturatedFatPerUnit">Sat Fat</MenuItem>
+          <MenuItem value="addedSugarPerUnit">Added Sugar</MenuItem>
         </Select>
       </Paper>
 
@@ -62,18 +64,20 @@ export default function FoodsPage() {
           <TableHead>
             <TableRow>
               <TableCell>Food</TableCell>
-              <TableCell align="right" sx={{ width: 90 }}>Unit Qty</TableCell>
-              <TableCell sx={{ width: 100 }}>Unit Type</TableCell>
-              <TableCell align="right" sx={{ width: 110 }}>Cal / unit</TableCell>
-              <TableCell align="right" sx={{ width: 120 }}>Protein / unit</TableCell>
-              <TableCell align="right" sx={{ width: 110 }}>Fiber / unit</TableCell>
-              <TableCell align="right" sx={{ width: 80 }} />
+              <TableCell align="right" sx={{ width: 80 }}>Unit Qty</TableCell>
+              <TableCell sx={{ width: 90 }}>Unit Type</TableCell>
+              <TableCell align="right" sx={{ width: 90 }}>Cal / unit</TableCell>
+              <TableCell align="right" sx={{ width: 100 }}>Protein / unit</TableCell>
+              <TableCell align="right" sx={{ width: 90 }}>Fiber / unit</TableCell>
+              <TableCell align="right" sx={{ width: 100 }}>Sat Fat / unit</TableCell>
+              <TableCell align="right" sx={{ width: 110 }}>Sugar / unit</TableCell>
+              <TableCell align="right" sx={{ width: 72 }} />
             </TableRow>
           </TableHead>
           <TableBody>
             {filtered.length === 0 && (
               <TableRow>
-                <TableCell colSpan={7} align="center" sx={{ color: 'text.secondary', py: 3 }}>
+                <TableCell colSpan={9} align="center" sx={{ color: 'text.secondary', py: 3 }}>
                   {search ? 'No foods match your search.' : 'No foods added yet.'}
                 </TableCell>
               </TableRow>
@@ -86,6 +90,8 @@ export default function FoodsPage() {
                 <TableCell align="right">{f.caloriesPerUnit}</TableCell>
                 <TableCell align="right" sx={{ color: 'text.secondary' }}>{f.proteinPerUnit}g</TableCell>
                 <TableCell align="right" sx={{ color: 'text.secondary' }}>{f.fiberPerUnit}g</TableCell>
+                <TableCell align="right" sx={{ color: 'text.secondary' }}>{f.saturatedFatPerUnit ?? 0}g</TableCell>
+                <TableCell align="right" sx={{ color: 'text.secondary' }}>{f.addedSugarPerUnit ?? 0}g</TableCell>
                 <TableCell align="right" sx={{ p: '2px 8px' }}>
                   <IconButton size="small"
                     onClick={() => dispatch(openModal({ type: 'editFood', foodId: f.id }))}>

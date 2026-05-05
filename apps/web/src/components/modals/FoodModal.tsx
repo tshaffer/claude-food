@@ -15,21 +15,25 @@ export default function FoodModal({ foodId }: Props) {
   const existing  = foodId ? foods.find(f => f.id === foodId) : undefined;
   const isEditing = !!existing;
 
-  const [name,     setName]     = useState(existing?.name            ?? '');
-  const [unitQty,  setUnitQty]  = useState<number | ''>(existing?.unitQuantity   ?? '');
-  const [unitType, setUnitType] = useState(existing?.unitType        ?? '');
-  const [cal,      setCal]      = useState<number | ''>(existing?.caloriesPerUnit ?? '');
-  const [protein,  setProtein]  = useState<number | ''>(existing?.proteinPerUnit  ?? '');
-  const [fiber,    setFiber]    = useState<number | ''>(existing?.fiberPerUnit    ?? '');
+  const [name,    setName]    = useState(existing?.name             ?? '');
+  const [unitQty, setUnitQty] = useState<number | ''>(existing?.unitQuantity    ?? '');
+  const [unitType,setUnitType]= useState(existing?.unitType         ?? '');
+  const [cal,     setCal]     = useState<number | ''>(existing?.caloriesPerUnit  ?? '');
+  const [protein, setProtein] = useState<number | ''>(existing?.proteinPerUnit   ?? '');
+  const [fiber,   setFiber]   = useState<number | ''>(existing?.fiberPerUnit     ?? '');
+  const [satFat,  setSatFat]  = useState<number | ''>(existing?.saturatedFatPerUnit ?? '');
+  const [sugar,   setSugar]   = useState<number | ''>(existing?.addedSugarPerUnit   ?? '');
 
   const isValid = name.trim() && unitQty !== '' && unitType.trim() &&
-                  cal !== '' && protein !== '' && fiber !== '';
+                  cal !== '' && protein !== '' && fiber !== '' &&
+                  satFat !== '' && sugar !== '';
 
   async function handleSave() {
     if (!isValid) return;
     const body: CreateFoodRequest = {
       name: name.trim(), unitQuantity: Number(unitQty), unitType: unitType.trim(),
       caloriesPerUnit: Number(cal), proteinPerUnit: Number(protein), fiberPerUnit: Number(fiber),
+      saturatedFatPerUnit: Number(satFat), addedSugarPerUnit: Number(sugar),
     };
     if (isEditing) {
       await dispatch(updateFood({ id: foodId!, body }));
@@ -71,6 +75,15 @@ export default function FoodModal({ foodId }: Props) {
             sx={{ flex: 1 }} />
           <TextField label="Fiber / unit (g)" type="number" size="small" value={fiber}
             onChange={e => setFiber(e.target.value === '' ? '' : Number(e.target.value))}
+            sx={{ flex: 1 }} />
+        </Box>
+
+        <Box sx={{ display: 'flex', gap: 1.5 }}>
+          <TextField label="Sat Fat / unit (g)" type="number" size="small" value={satFat}
+            onChange={e => setSatFat(e.target.value === '' ? '' : Number(e.target.value))}
+            sx={{ flex: 1 }} />
+          <TextField label="Added Sugar / unit (g)" type="number" size="small" value={sugar}
+            onChange={e => setSugar(e.target.value === '' ? '' : Number(e.target.value))}
             sx={{ flex: 1 }} />
         </Box>
       </DialogContent>

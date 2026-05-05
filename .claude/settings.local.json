@@ -7,7 +7,29 @@
       "Bash(pnpm typecheck:*)",
       "Bash(pnpm dev *)",
       "Bash(ps *)",
-      "Bash(kill 88232)"
+      "Bash(kill 88232)",
+      "Bash(heroku --version)",
+      "Bash(heroku auth:whoami)",
+      "Bash(pnpm --version)",
+      "Bash(pnpm build *)",
+      "Bash(heroku create *)",
+      "Bash(heroku config:set *)",
+      "Bash(heroku addons:create heroku-postgresql:essential-0 --app foodtracker)",
+      "Bash(heroku addons:available)",
+      "Bash(heroku addons:destroy *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(heroku git:remote --app foodtracker)",
+      "Bash(git push *)",
+      "Bash(curl *)",
+      "Bash(heroku logs *)",
+      "Bash(npx tsx *)",
+      "Bash(heroku config *)",
+      "Bash(grep -v \"^$\")",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)",
+      "Bash(echo \"Started dev servers \\(PID $!\\)\")",
+      "Bash(echo \"Dev PID: $!\")"
     ]
   }
 }

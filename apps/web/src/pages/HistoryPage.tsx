@@ -48,12 +48,14 @@ export default function HistoryPage() {
                 <TableCell align="right">Calories</TableCell>
                 <TableCell align="right">Protein</TableCell>
                 <TableCell align="right">Fiber</TableCell>
+                <TableCell align="right">Sat Fat</TableCell>
+                <TableCell align="right">Sugar</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {dailyTotals.length === 0 && (
                 <TableRow>
-                  <TableCell colSpan={4} align="center" sx={{ color: 'text.secondary', py: 3 }}>
+                  <TableCell colSpan={6} align="center" sx={{ color: 'text.secondary', py: 3 }}>
                     No history yet.
                   </TableCell>
                 </TableRow>
@@ -71,6 +73,12 @@ export default function HistoryPage() {
                   </TableCell>
                   <TableCell align="right" sx={{ color: 'text.secondary' }}>
                     {Math.round(row.fiber * 10) / 10}g
+                  </TableCell>
+                  <TableCell align="right" sx={{ color: 'text.secondary' }}>
+                    {Math.round(row.saturatedFat * 10) / 10}g
+                  </TableCell>
+                  <TableCell align="right" sx={{ color: 'text.secondary' }}>
+                    {Math.round(row.addedSugar * 10) / 10}g
                   </TableCell>
                 </TableRow>
               ))}
@@ -91,8 +99,10 @@ export default function HistoryPage() {
                   {dayTotals && (
                     <Typography variant="body2" color="text.secondary">
                       {Math.round(dayTotals.calories).toLocaleString()} cal ·{' '}
-                      {Math.round(dayTotals.protein * 10) / 10}g protein ·{' '}
-                      {Math.round(dayTotals.fiber   * 10) / 10}g fiber
+                      {Math.round(dayTotals.protein      * 10) / 10}g prot ·{' '}
+                      {Math.round(dayTotals.fiber        * 10) / 10}g fib ·{' '}
+                      {Math.round(dayTotals.saturatedFat * 10) / 10}g sat ·{' '}
+                      {Math.round(dayTotals.addedSugar   * 10) / 10}g sug
                     </Typography>
                   )}
                 </Box>
@@ -116,7 +126,7 @@ export default function HistoryPage() {
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25 }}>
                       <Typography variant="body2" sx={{ fontWeight: 600 }}>{group.meal}</Typography>
                       <Typography variant="caption" color="text.secondary">
-                        {Math.round(group.calories)} cal · {Math.round(group.protein * 10) / 10}g protein · {Math.round(group.fiber * 10) / 10}g fiber
+                        {Math.round(group.calories)} cal · {Math.round(group.protein * 10) / 10}g prot · {Math.round(group.fiber * 10) / 10}g fib · {Math.round(group.saturatedFat * 10) / 10}g sat · {Math.round(group.addedSugar * 10) / 10}g sug
                       </Typography>
                     </Box>
                     <Button size="small" sx={{ fontSize: '0.6875rem', py: 0, minWidth: 0 }}
@@ -128,11 +138,13 @@ export default function HistoryPage() {
                     <TableHead>
                       <TableRow>
                         <TableCell>Food</TableCell>
-                        <TableCell sx={{ width: 110 }}>Amount</TableCell>
-                        <TableCell align="right" sx={{ width: 68 }}>Cal</TableCell>
-                        <TableCell align="right" sx={{ width: 80 }}>Protein</TableCell>
-                        <TableCell align="right" sx={{ width: 68 }}>Fiber</TableCell>
-                        <TableCell align="right" sx={{ width: 80 }} />
+                        <TableCell sx={{ width: 100 }}>Amount</TableCell>
+                        <TableCell align="right" sx={{ width: 56 }}>Cal</TableCell>
+                        <TableCell align="right" sx={{ width: 68 }}>Protein</TableCell>
+                        <TableCell align="right" sx={{ width: 56 }}>Fiber</TableCell>
+                        <TableCell align="right" sx={{ width: 68 }}>Sat Fat</TableCell>
+                        <TableCell align="right" sx={{ width: 60 }}>Sugar</TableCell>
+                        <TableCell align="right" sx={{ width: 72 }} />
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -142,10 +154,16 @@ export default function HistoryPage() {
                           <TableCell sx={{ color: 'text.secondary' }}>{e.actualAmount} {e.unitType}</TableCell>
                           <TableCell align="right">{Math.round(e.calories)}</TableCell>
                           <TableCell align="right" sx={{ color: 'text.secondary' }}>
-                            {Math.round(e.protein * 10) / 10}g
+                            {Math.round(e.protein      * 10) / 10}g
                           </TableCell>
                           <TableCell align="right" sx={{ color: 'text.secondary' }}>
-                            {Math.round(e.fiber * 10) / 10}g
+                            {Math.round(e.fiber        * 10) / 10}g
+                          </TableCell>
+                          <TableCell align="right" sx={{ color: 'text.secondary' }}>
+                            {Math.round(e.saturatedFat * 10) / 10}g
+                          </TableCell>
+                          <TableCell align="right" sx={{ color: 'text.secondary' }}>
+                            {Math.round(e.addedSugar   * 10) / 10}g
                           </TableCell>
                           <TableCell align="right" sx={{ p: '2px 8px' }}>
                             <IconButton size="small"

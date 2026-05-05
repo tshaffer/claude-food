@@ -5,13 +5,17 @@ interface Props {
   calories: number;
   protein: number;
   fiber: number;
+  saturatedFat: number;
+  addedSugar: number;
 }
 
-export default function NutritionSummaryCards({ calories, protein, fiber }: Props) {
+export default function NutritionSummaryCards({ calories, protein, fiber, saturatedFat, addedSugar }: Props) {
   const cards = [
-    { label: 'Calories', value: Math.round(calories).toLocaleString(), unit: 'kcal', color: '#3B82F6' },
-    { label: 'Protein',  value: `${Math.round(protein * 10) / 10} g`,  unit: '',     color: '#10B981' },
-    { label: 'Fiber',    value: `${Math.round(fiber   * 10) / 10} g`,  unit: '',     color: '#F59E0B' },
+    { label: 'Calories',     value: Math.round(calories).toLocaleString(),           unit: 'kcal', color: '#3B82F6' },
+    { label: 'Protein',      value: `${Math.round(protein      * 10) / 10} g`,       unit: '',     color: '#10B981' },
+    { label: 'Fiber',        value: `${Math.round(fiber        * 10) / 10} g`,       unit: '',     color: '#F59E0B' },
+    { label: 'Sat Fat',      value: `${Math.round(saturatedFat * 10) / 10} g`,       unit: '',     color: '#EF4444' },
+    { label: 'Added Sugar',  value: `${Math.round(addedSugar   * 10) / 10} g`,       unit: '',     color: '#8B5CF6' },
   ];
   return (
     <Box sx={{ display: 'flex', gap: 1.5 }}>
