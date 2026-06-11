@@ -86,16 +86,18 @@ export default function LogPage() {
               <TableCell sx={{ width: 140 }}>Template</TableCell>
               <TableCell>Food</TableCell>
               <TableCell sx={{ width: 110 }}>Amount</TableCell>
-              <TableCell align="right" sx={{ width: 68 }}>Cal</TableCell>
+              <TableCell align="right" sx={{ width: 80 }}>Calories</TableCell>
               <TableCell align="right" sx={{ width: 80 }}>Protein</TableCell>
               <TableCell align="right" sx={{ width: 68 }}>Fiber</TableCell>
+              <TableCell align="right" sx={{ width: 80 }}>Sat Fat</TableCell>
+              <TableCell align="right" sx={{ width: 80 }}>Sugar</TableCell>
               <TableCell align="right" sx={{ width: 80 }} />
             </TableRow>
           </TableHead>
           <TableBody>
             {filtered.length === 0 && (
               <TableRow>
-                <TableCell colSpan={9} align="center" sx={{ color: 'text.secondary', py: 3 }}>
+                <TableCell colSpan={11} align="center" sx={{ color: 'text.secondary', py: 3 }}>
                   No entries match the current filters.
                 </TableCell>
               </TableRow>
@@ -115,6 +117,12 @@ export default function LogPage() {
                 </TableCell>
                 <TableCell align="right" sx={{ color: 'text.secondary' }}>
                   {Math.round(e.fiber * 10) / 10}g
+                </TableCell>
+                <TableCell align="right" sx={{ color: 'text.secondary' }}>
+                  {Math.round(e.saturatedFat * 10) / 10}g
+                </TableCell>
+                <TableCell align="right" sx={{ color: 'text.secondary' }}>
+                  {Math.round(e.addedSugar * 10) / 10}g
                 </TableCell>
                 <TableCell align="right" sx={{ p: '2px 8px' }}>
                   <IconButton size="small"
