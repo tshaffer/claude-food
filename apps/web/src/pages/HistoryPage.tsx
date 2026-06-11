@@ -93,7 +93,8 @@ export default function HistoryPage() {
           ) : (
             <>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                         pb: 1.5, borderBottom: '1px solid', borderColor: 'divider' }}>
+                         pb: 1.5, borderBottom: '1px solid', borderColor: 'divider',
+                         position: 'sticky', top: 0, zIndex: 1, bgcolor: 'background.default' }}>
                 <Box>
                   <Typography variant="h2">{formatShortDate(selectedDate)}</Typography>
                   {dayTotals && (
