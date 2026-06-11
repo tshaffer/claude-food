@@ -91,9 +91,10 @@ export default function TemplatesPage() {
       const n = calcNutrition(Number(item.defaultAmount), food.unitQuantity,
                               food.caloriesPerUnit, food.proteinPerUnit, food.fiberPerUnit,
                               food.saturatedFatPerUnit ?? 0, food.addedSugarPerUnit ?? 0);
-      return { cal: acc.cal + n.calories, pro: acc.pro + n.protein, fib: acc.fib + n.fiber };
+      return { cal: acc.cal + n.calories, pro: acc.pro + n.protein, fib: acc.fib + n.fiber,
+               sat: acc.sat + n.saturatedFat, sug: acc.sug + n.addedSugar };
     },
-    { cal: 0, pro: 0, fib: 0 }
+    { cal: 0, pro: 0, fib: 0, sat: 0, sug: 0 }
   );
 
   if (!selectedUserId) {
@@ -170,9 +171,11 @@ export default function TemplatesPage() {
                     <TableCell sx={{ width: 32 }}>#</TableCell>
                     <TableCell>Food</TableCell>
                     <TableCell sx={{ width: 140 }}>Default Amount</TableCell>
-                    <TableCell align="right" sx={{ width: 72 }}>Cal</TableCell>
+                    <TableCell align="right" sx={{ width: 80 }}>Calories</TableCell>
                     <TableCell align="right" sx={{ width: 80 }}>Protein</TableCell>
                     <TableCell align="right" sx={{ width: 72 }}>Fiber</TableCell>
+                    <TableCell align="right" sx={{ width: 80 }}>Sat Fat</TableCell>
+                    <TableCell align="right" sx={{ width: 72 }}>Sugar</TableCell>
                     <TableCell sx={{ width: 40 }} />
                   </TableRow>
                 </TableHead>
@@ -212,6 +215,12 @@ export default function TemplatesPage() {
                         <TableCell align="right" sx={{ color: 'text.secondary' }}>
                           {n ? `${Math.round(n.fiber * 10) / 10}g` : '—'}
                         </TableCell>
+                        <TableCell align="right" sx={{ color: 'text.secondary' }}>
+                          {n ? `${Math.round(n.saturatedFat * 10) / 10}g` : '—'}
+                        </TableCell>
+                        <TableCell align="right" sx={{ color: 'text.secondary' }}>
+                          {n ? `${Math.round(n.addedSugar * 10) / 10}g` : '—'}
+                        </TableCell>
                         <TableCell>
                           <IconButton size="small" onClick={() => removeRow(item.clientId)}>
                             <DeleteIcon sx={{ fontSize: 14 }} />
@@ -230,9 +239,11 @@ export default function TemplatesPage() {
             {/* Totals */}
             <Box sx={{ display: 'flex', gap: 1.5 }}>
               {[
-                { label: 'Total Calories', value: Math.round(totals.cal).toString() },
-                { label: 'Total Protein',  value: `${Math.round(totals.pro * 10) / 10}g` },
-                { label: 'Total Fiber',    value: `${Math.round(totals.fib * 10) / 10}g` },
+                { label: 'Total Calories',    value: Math.round(totals.cal).toString() },
+                { label: 'Total Protein',     value: `${Math.round(totals.pro * 10) / 10}g` },
+                { label: 'Total Fiber',       value: `${Math.round(totals.fib * 10) / 10}g` },
+                { label: 'Total Sat Fat',     value: `${Math.round(totals.sat * 10) / 10}g` },
+                { label: 'Total Added Sugar', value: `${Math.round(totals.sug * 10) / 10}g` },
               ].map(t => (
                 <Paper key={t.label} variant="outlined" sx={{ flex: 1, p: '10px 16px' }}>
                   <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 500 }}>
