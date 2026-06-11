@@ -63,15 +63,15 @@ export default function FoodsPage() {
         <Table size="small" stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell>Food</TableCell>
-              <TableCell align="right" sx={{ width: 80 }}>Unit Qty</TableCell>
-              <TableCell sx={{ width: 90 }}>Unit Type</TableCell>
-              <TableCell align="right" sx={{ width: 90 }}>Cal / unit</TableCell>
-              <TableCell align="right" sx={{ width: 100 }}>Protein / unit</TableCell>
-              <TableCell align="right" sx={{ width: 90 }}>Fiber / unit</TableCell>
-              <TableCell align="right" sx={{ width: 100 }}>Sat Fat / unit</TableCell>
-              <TableCell align="right" sx={{ width: 110 }}>Sugar / unit</TableCell>
-              <TableCell align="right" sx={{ width: 72 }} />
+              <TableCell sx={{ width: '38%' }}>Food</TableCell>
+              <TableCell align="right" sx={{ width: '8.2%' }}>Unit Qty</TableCell>
+              <TableCell sx={{ width: '8.2%' }}>Unit Type</TableCell>
+              <TableCell align="right" sx={{ width: '8.2%' }}>Cal / unit</TableCell>
+              <TableCell align="right" sx={{ width: '8.2%' }}>Protein / unit</TableCell>
+              <TableCell align="right" sx={{ width: '8.2%' }}>Fiber / unit</TableCell>
+              <TableCell align="right" sx={{ width: '8.2%' }}>Sat Fat / unit</TableCell>
+              <TableCell align="right" sx={{ width: '8.2%' }}>Sugar / unit</TableCell>
+              <TableCell align="right" sx={{ width: '4.5%', minWidth: 72 }} />
             </TableRow>
           </TableHead>
           <TableBody>
