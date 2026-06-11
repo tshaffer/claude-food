@@ -60,7 +60,7 @@ export default function FoodsPage() {
       </Paper>
 
       <Paper variant="outlined" sx={{ flex: 1, overflow: 'auto' }}>
-        <Table size="small">
+        <Table size="small" stickyHeader>
           <TableHead>
             <TableRow>
               <TableCell>Food</TableCell>

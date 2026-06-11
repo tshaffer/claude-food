@@ -78,7 +78,7 @@ export default function LogPage() {
 
       {/* Table */}
       <Paper variant="outlined" sx={{ flex: 1, overflow: 'auto' }}>
-        <Table size="small">
+        <Table size="small" stickyHeader>
           <TableHead>
             <TableRow>
               <TableCell sx={{ width: 90 }}>Date</TableCell>
