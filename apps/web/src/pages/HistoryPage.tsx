@@ -25,7 +25,7 @@ export default function HistoryPage() {
   }
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 48px)', boxSizing: 'border-box' }}>
       {/* Header */}
       <Box sx={{ p: '20px 28px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Typography variant="h1">History</Typography>
@@ -40,7 +40,7 @@ export default function HistoryPage() {
 
       <Box sx={{ display: 'flex', flex: 1, overflow: 'hidden', px: '28px', pb: '20px', gap: 2 }}>
         {/* Left: daily totals */}
-        <Paper variant="outlined" sx={{ width: 380, flexShrink: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+        <Paper variant="outlined" sx={{ width: 380, flexShrink: 0, overflow: 'auto', display: 'flex', flexDirection: 'column' }}>
           <Table size="small" stickyHeader>
             <TableHead>
               <TableRow>
@@ -119,7 +119,7 @@ export default function HistoryPage() {
               </Box>
 
               {mealGroups.map(group => (
-                <Paper key={group.meal} variant="outlined" sx={{ overflow: 'hidden' }}>
+                <Paper key={group.meal} variant="outlined" sx={{ overflow: 'hidden', flexShrink: 0 }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                              px: 1.5, py: 0.75, bgcolor: '#F1F5F9',
                              borderBottom: '1px solid', borderColor: 'divider' }}>

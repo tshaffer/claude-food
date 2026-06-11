@@ -24,7 +24,7 @@ export default function MealSection({ group, onAddToMeal }: Props) {
   ].join(' · ');
 
   return (
-    <Paper variant="outlined" sx={{ overflow: 'hidden' }}>
+    <Paper variant="outlined" sx={{ overflow: 'hidden', flexShrink: 0 }}>
       {/* Meal header */}
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                  px: 1.5, py: 0.875, bgcolor: '#F1F5F9', borderBottom: '1px solid',
