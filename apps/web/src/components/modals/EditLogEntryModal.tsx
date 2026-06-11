@@ -71,8 +71,10 @@ export default function EditLogEntryModal({ entryId }: Props) {
                      borderRadius: 1, p: 1.25, display: 'flex', gap: 2 }}>
             {[
               { label: 'Calories', value: Math.round(preview.calories).toString() },
-              { label: 'Protein',  value: `${Math.round(preview.protein * 10) / 10}g` },
-              { label: 'Fiber',    value: `${Math.round(preview.fiber   * 10) / 10}g` },
+              { label: 'Protein',  value: `${Math.round(preview.protein      * 10) / 10}g` },
+              { label: 'Fiber',    value: `${Math.round(preview.fiber        * 10) / 10}g` },
+              { label: 'Sat Fat',  value: `${Math.round(preview.saturatedFat * 10) / 10}g` },
+              { label: 'Sugar',    value: `${Math.round(preview.addedSugar   * 10) / 10}g` },
             ].map(item => (
               <Box key={item.label} sx={{ textAlign: 'center', flex: 1 }}>
                 <Typography variant="caption" color="text.secondary">{item.label}</Typography>
