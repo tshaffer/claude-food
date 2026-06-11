@@ -30,12 +30,12 @@ module.exports = {
     }),
   ],
   devServer: {
-    port: 3000,
+    port: 3020,
     historyApiFallback: true,
     proxy: [
       {
         context: ['/api'],
-        target: 'http://localhost:3001',
+        target: 'http://localhost:3021',
       },
     ],
   },
